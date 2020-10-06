@@ -1,7 +1,8 @@
-function getResult(a,b,c){
-        
-    "use strict";
 
+"use strict";
+
+function getResult(a,b,c){  
+    
     let discr = b**2 - 4 * a * c;
     let x = [];
 
@@ -21,7 +22,6 @@ function getResult(a,b,c){
 
 function getAverageMark(marks){
     
-    "use strict";
 
     let len = marks.length;
 
@@ -47,11 +47,7 @@ function getAverageMark(marks){
 
 function askDrink(name,dateOfBirthday){
        
-    "use strict";
-
-    let now = new Date();
-
-    if ((now.getFullYear() - dateOfBirthday.getFullYear()) >= 18) return `Не желаете ли олд-фэшн, ${name}?`;
+    if ((new Date().getFullYear() - dateOfBirthday.getFullYear()) >= 18) return `Не желаете ли олд-фэшн, ${name}?`;
     else return `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
 
 }
