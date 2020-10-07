@@ -16,17 +16,13 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     }
 
     else {
-
     	percent = Number(percent);
     	contribution = Number(contribution);
     	amount = Number(amount);
-    	console.log(percent, contribution, amount);
     	let S = amount - contribution;
     	let P = percent / 12 / 100;
     	let n = (date.getFullYear() - new Date().getFullYear()) * 12 + (date.getMonth() - new Date().getMonth());
-    	console.log(S,P,n, date.getFullYear(), new Date().getFullYear());
     	let sum = (S * (P + P/(((1+P) ** n) - 1))) * n;
-    	console.log(sum)
     	return Number(sum.toFixed(2));
     }
 
@@ -39,5 +35,6 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 function getGreeting(name) {
 
 	if (typeof name !== "string" || name.length < 1) name = 'Аноним';
-	return `Привет, мир! Меня зовут ${name}`
+	return `Привет, мир! Меня зовут ${name}`;
+	
 }
