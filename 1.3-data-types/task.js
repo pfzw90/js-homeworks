@@ -2,22 +2,24 @@
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
         
-    if (typeof parseInt(percent) !== "number") {
+    let p = parseInt(percent,10);
+    let c = parseInt(contribution,10);
+    let a = parseInt(amount,10);
+
+    if (isNaN(p)) {
     	return `“Параметр ПРОЦЕНТ содержит неправильное значение ${percent}”`;
     }
 
-    else if (typeof parseInt(contribution) !== "number") {
+    else if (isNaN(c)) {
   		return `“Параметр ПЕРВОНАЧАЛЬНЫЙ ВЗНОС содержит неправильное значение ${contribution}”`;
     }
 
-    else if (typeof parseInt(amount) !== "number") {
+    else if (isNaN(a)) {
   		return `“Параметр СУММА КРЕДИТА содержит неправильное значение ${amount}”`;
     }
 
     else {
-    	percent = Number(percent);
-    	contribution = Number(contribution);
-    	amount = Number(amount);
+
     	let S = amount - contribution;
     	let P = percent / 12 / 100;
     	let n = (date.getFullYear() - new Date().getFullYear()) * 12 + (date.getMonth() - new Date().getMonth());
