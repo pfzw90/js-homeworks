@@ -1,8 +1,7 @@
 "use strict";
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-    
-    
+        
     if (typeof parseInt(percent) !== "number") {
     	return `“Параметр ПРОЦЕНТ содержит неправильное значение ${percent}”`;
     }
@@ -26,11 +25,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     	return Number(sum.toFixed(2));
     }
 
-
-
-
-
 }
+
+
 
 function getGreeting(name) {
 
