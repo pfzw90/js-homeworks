@@ -18,14 +18,12 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   		return `Параметр СУММА КРЕДИТА содержит неправильное значение - \"${window.amount.value}\"`;
     }
 
-    else {
-
-    	let S = amount - contribution;
-    	let P = percent / 12 / 100;
-    	let n = (date.getFullYear() - new Date().getFullYear()) * 12 + (date.getMonth() - new Date().getMonth());
-    	let sum = (S * (P + P/(((1+P) ** n) - 1))) * n;
-    	return Number(sum.toFixed(2));
-    }
+    const now = new Date();
+    let S = amount - contribution;
+    let P = percent / 12 / 100;
+    let n = (date.getFullYear() - now.getFullYear()) * 12 + (date.getMonth() - now.getMonth());
+    let sum = (S * (P + P/(((1+P) ** n) - 1))) * n;
+    return Number(sum.toFixed(2));
 
 }
 
