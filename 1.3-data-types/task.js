@@ -2,19 +2,19 @@
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
         
-    let p = parseInt(percent,10);
-    let c = parseInt(contribution,10);
-    let a = parseInt(amount,10);
+    percent = parseInt(percent,10);
+    contribution = parseInt(contribution,10);
+    amount = parseInt(amount,10);
 
-    if (isNaN(p)) {
+    if (isNaN(percent)) {
     	return `Параметр ПРОЦЕНТ содержит неправильное значение - \"${window.percent.value}\"`;
     }
 
-    else if (isNaN(c)) {
+    else if (isNaN(contribution)) {
   		return `Параметр ПЕРВОНАЧАЛЬНЫЙ ВЗНОС содержит неправильное значение - \"${window.contribution.value}\"`;
     }
 
-    else if (isNaN(a)) {
+    else if (isNaN(amount)) {
   		return `Параметр СУММА КРЕДИТА содержит неправильное значение - \"${window.amount.value}\"`;
     }
 
