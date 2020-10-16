@@ -19,3 +19,25 @@ function getAverageMark(marks) {
     return 0;
 }
 
+function checkBirthday(birthday) {
+    let now = new Date();
+    let user_birthday = new Date(birthday);
+    let now_unix = now.getTime();
+    let user_birthday_unix = user_birthday.getTime();
+    let diff = now_unix - user_birthday_unix;
+    
+    let leap_years = 0, years = 0;
+    for (let year = user_birthday.getFullYear(); year < now.getFullYear(); year++) {
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) leap_years++;
+        else years++;
+    }
+
+    if (years + leap_years >= 18) return true;
+
+    let total_ms_in_prev_years = (years * 365 + leap_years * 366) * 24 * 60 * 60 * 1000;
+    let total_ms_this_year_before_birthday = diff - total_ms_in_prev_years;
+    let total_ms_this_year_passed = now_unix - new Date(now.getFullYear(), 0, 1).getTime();
+
+    return (total_ms_this_year_before_birthday >= total_ms_this_year_passed);
+   
+}
