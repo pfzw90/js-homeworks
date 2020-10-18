@@ -92,8 +92,6 @@ class Library {
         }
         return null;
     }
-
-
 }
 
 let myHomeLibrary = new Library("Домашняя библиотека");
