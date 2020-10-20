@@ -85,7 +85,7 @@ class Library {
         let i = 0;
         for (let book of this.books) {
             if (book.name == bookName) {
-                this.books.splice(i);
+                this.books.splice(i,1);
                 return book;             
             } 
             i++;
@@ -104,8 +104,70 @@ myHomeLibrary.addBook(theMartianCronicles);
 myHomeLibrary.addBook(toKillaMockingbird);
 myHomeLibrary.addBook(myInventions);
 myHomeLibrary.findBookBy('releaseDate', 1919);
-myHomeLibrary.giveBookByName('My Inventions');
-myInventions.state = 21;
-myInventions.fix();
-myHomeLibrary.addBook(myInventions);
+myHomeLibrary.giveBookByName('To Kill a Mockingbird');
+toKillaMockingbird.state = 21;
+toKillaMockingbird.fix();
+myHomeLibrary.addBook(toKillaMockingbird);
+
+
+
+class StudentLog {
+
+    constructor(name) {
+        this.name = name;
+        this.grades = {};
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    #checkSubjExistance(subject) {
+        if (this.grades.hasOwnProperty(subject)) return true;
+        return false;
+    }
+
+    addGrade(grade, subject) {
+        let result = '';
+        if ((typeof grade !== 'number') || (0 > grade) || (grade > 5)) result += `Вы пытались поставить оценку "${grade}" по предмету "${subject}". Допускаются только числа от 1 до 5. \n`;
+        
+        else if (this.#checkSubjExistance(subject)) {
+            this.grades[subject].push(grade);
+        }
+
+        else {
+            this.grades[subject] = [];
+            this.grades[subject].push(grade);
+        }
+
+        if (this.#checkSubjExistance(subject)) return result += this.grades[subject].length;
+        return result += 0;
+
+    }
+
+    getAverageBySubject(subject) {
+        if (!(this.#checkSubjExistance(subject))) return 0;
+
+        else {
+            let result = 0;
+            for (let grade of this.grades[subject]) {
+                result += grade;
+            }
+            return result/this.grades[subject].length;
+        }
+    }
+
+    getTotalAverage() {
+        if (this.grades == {}) return 0;   
+       
+        else {
+            let result = 0;
+            for (let subj in this.grades) {
+                result += this.getAverageBySubject(subj);
+            }
+            return result/Object.getOwnPropertyNames(this.grades).length;
+        }
+    }
+
+}
 
