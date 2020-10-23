@@ -1,7 +1,6 @@
 "use strict";
 
-function sleep(milliseconds) 
-{
+function sleep(milliseconds) {
   let e = new Date().getTime() + milliseconds;
   while (new Date().getTime() <= e) {
       let a = 0;
@@ -13,7 +12,7 @@ function findZero(...args) {
     return Array.from(args).some(arg => arg === 0);
 }
 
- function compareArrays(arr1, arr2) {
+function compareArrays(arr1, arr2) {
      return arr1.every((elem, i) => elem === arr2[i]);
 }
 
