@@ -1,9 +1,6 @@
 "use strict";
-
-
-
+console.clear();
 const weapons = [new Knife(), new Staff(), new Axe(), new StormStaff(), new LongBow(), new Bow()];
-console.log(weapons);
 
 let getNames = () => weapons.map(weapon => weapon.name);
 let getCountReliableWeapons = (dur) => weapons.filter(weapon => weapon.durability > dur).length;
