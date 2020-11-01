@@ -25,7 +25,7 @@ class AlarmClock {
 
     start() {
         let firstAlarmWentOff = false;
-         let checkClock = (alarm) => {
+        let checkClock = (alarm) => {
             let now = new Date();
 
             if (!firstAlarmWentOff && alarm.startTime === this.form(now)) { 
