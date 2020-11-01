@@ -21,16 +21,23 @@ class AlarmClock {
         return Boolean(this.alarmCollection.splice(this.alarmCollection.findIndex(alarm => alarm.id === id) , 1).length);     
     }
 
-    getCurrentFormattedTime() {
-        let now = new Date();
-        return `${now.getHours()}:${now.getMinutes()}`;
-    }
+    form = (date) => `${date.getHours()}:${date.getMinutes()}`; 
 
     start() {
-        let checkClock = (alarm) => { if (alarm.startTime === this.getCurrentFormattedTime()) alarm.action(); }
+        let firstAlarmWentOff = false;
+         let checkClock = (alarm) => {
+            let now = new Date();
+
+            if (!firstAlarmWentOff && alarm.startTime === this.form(now)) { 
+                firstAlarmWentOff = true;
+                alarm.action();
+            } 
+            
+            else if (now.getSeconds() === 0) {
+                if (alarm.startTime === this.form(now)) alarm.action(); }}
+
         if (this.timerId === null) {
-            this.timerId = setInterval(() => {this.alarmCollection.forEach(alarm => checkClock(alarm))}, 1);
-        }
+            this.timerId = setInterval(() => {this.alarmCollection.forEach(alarm => checkClock(alarm))}, 1);}
     }
     
     stop() {
@@ -52,21 +59,20 @@ class AlarmClock {
 }
 
 function testCase() {
-    let form = (date) => `${date.getHours()}:${date.getMinutes()}`; 
+
     let testAlarm = new AlarmClock;
 
     let time = new Date();
-    testAlarm.addClock(form(time), ()=>{
-        testAlarm.alarmCollection[testAlarm.alarmCollection.findIndex((alarm) => alarm.id === '0')].startTime = null;
+    testAlarm.addClock(testAlarm.form(time), ()=>{
         let i = 0;
         let t = setInterval(()=>{
             if (i >= 3) clearInterval(t);
             else console.log('Test function running...' + (i++).toString()); 
-            }, 2000);
+            }, 1000);
     }, '0');
 
     time.setMinutes(time.getMinutes() + 1);
-    testAlarm.addClock(form(time),()=>{
+    testAlarm.addClock(testAlarm.form(time),()=>{
         console.log(`Hello, I'm second alarm!`);
         testAlarm.printAlarms();
         testAlarm.removeClock('1');
@@ -75,7 +81,7 @@ function testCase() {
     }, '1');
 
     time.setMinutes(time.getMinutes() + 1);
-    testAlarm.addClock(form(time),()=>{
+    testAlarm.addClock(testAlarm.form(time),()=>{
         console.log(`Hello, I'm third alarm!`);
         testAlarm.stop();
         testAlarm.clearAlarms();
