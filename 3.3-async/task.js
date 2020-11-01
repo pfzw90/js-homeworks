@@ -23,7 +23,7 @@ class AlarmClock {
 
     form = (date) => `${date.getHours()}:${date.getMinutes()}`; 
 
-    start() {
+    start() { 
         let firstAlarmWentOff = false;
         let checkClock = (alarm) => {
             let now = new Date();
