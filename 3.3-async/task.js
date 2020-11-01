@@ -13,7 +13,7 @@ class AlarmClock {
             console.error("Будильник с таким ID уже существует");
             return;
         }
-        this.alarmCollection.push({"startTime" : startTime, "action" : action, "id" : id});
+        this.alarmCollection.push({"startTime" : startTime, "action" : action, "id" : id, "launched": false});
         console.log(this.alarmCollection.length);       
     }
 
@@ -21,20 +21,17 @@ class AlarmClock {
         return Boolean(this.alarmCollection.splice(this.alarmCollection.findIndex(alarm => alarm.id === id) , 1).length);     
     }
 
-    form = (date) => `${date.getHours()}:${date.getMinutes()}`; 
+    getCurrentFormattedTime() {
+        let now = new Date();
+        return `${now.getHours()}:${now.getMinutes()}`;
+    }
 
     start() { 
-        let firstAlarmWentOff = false;
         let checkClock = (alarm) => {
-            let now = new Date();
-
-            if (!firstAlarmWentOff && alarm.startTime === this.form(now)) { 
-                firstAlarmWentOff = true;
-                alarm.action();
-            } 
-            
-            else if (now.getSeconds() === 0) {
-                if (alarm.startTime === this.form(now)) alarm.action(); }}
+            if (alarm.startTime === this.getCurrentFormattedTime() && !alarm.launched) {
+                    alarm.launched = true;
+                    alarm.action(); }
+        }
 
         if (this.timerId === null) {
             this.timerId = setInterval(() => {this.alarmCollection.forEach(alarm => checkClock(alarm))}, 1);}
@@ -60,19 +57,20 @@ class AlarmClock {
 
 function testCase() {
 
+    let format = (date) => `${date.getHours()}:${date.getMinutes()}`
     let testAlarm = new AlarmClock;
-
     let time = new Date();
-    testAlarm.addClock(testAlarm.form(time), ()=>{
+
+    testAlarm.addClock(format(time), ()=>{
         let i = 0;
         let t = setInterval(()=>{
             if (i >= 3) clearInterval(t);
-            else console.log('Test function running...' + (i++).toString()); 
+            else console.log('Test function running...' + (++i).toString()); 
             }, 1000);
     }, '0');
 
     time.setMinutes(time.getMinutes() + 1);
-    testAlarm.addClock(testAlarm.form(time),()=>{
+    testAlarm.addClock(format(time),()=>{
         console.log(`Hello, I'm second alarm!`);
         testAlarm.printAlarms();
         testAlarm.removeClock('1');
@@ -81,7 +79,7 @@ function testCase() {
     }, '1');
 
     time.setMinutes(time.getMinutes() + 1);
-    testAlarm.addClock(testAlarm.form(time),()=>{
+    testAlarm.addClock(format(time),()=>{
         console.log(`Hello, I'm third alarm!`);
         testAlarm.stop();
         testAlarm.clearAlarms();
